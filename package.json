@@ -1,0 +1,17 @@
+{
+  "name": "game_recap_tool",
+  "version": "1.0.0",
+  "description": "paste box score or stats of a game and get an announcer style highlight script/recap",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --env-file=.env index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.90.0"
+  }
+}

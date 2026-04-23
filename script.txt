@@ -1,0 +1,109 @@
+  Lakers vs Celtics - NBA Playoffs Game 7
+  Final Score: Lakers 108, Celtics 104                                                                                                     
+                                                                                                                                           
+  LAKERS                                                                                                                                   
+  LeBron James: 38 pts, 12 reb, 9 ast, 2 stl, 14/24 FG                                                                                     
+  Anthony Davis: 24 pts, 15 reb, 3 blk, 9/14 FG                                                                                            
+  Austin Reaves: 18 pts, 5 ast, 4/8 3PT                                                                                                    
+                                                                                                                                           
+  CELTICS                                                                                                                                  
+  Jayson Tatum: 35 pts, 8 reb, 6 ast, 12/27 FG                                                                                             
+  Jaylen Brown: 22 pts, 5 reb, 8/17 FG
+  Al Horford: 11 pts, 9 reb, 3 blk                                                                                                         
+                                                                                                                                           
+  GAME NOTES                                                                                                                               
+  - Lakers trailed by 14 at halftime                                                                                                       
+  - LeBron scored 16 points in the 4th quarter                                                                                             
+  - Reaves hit a clutch 3-pointer with 45 seconds left to put Lakers up 4
+  - Tatum fouled out with 1:12 remaining                                                                                                   
+  - Sold out crowd at TD Garden
+
+  output before explaining how to output:
+
+  # 🏀 LAKERS vs CELTICS — GAME 7 PLAYOFF HIGHLIGHTS 🏀
+
+---
+
+**FOLKS, STRAP IN — because what we just witnessed inside TD Garden is going to be talked about for DECADES.**
+
+The Los Angeles Lakers. The Boston Celtics. Game SEVEN. And it delivered EVERYTHING we could have possibly asked for and MORE.
+
+---
+
+## THE SETUP
+
+A sold-out TD Garden — **rocking, ELECTRIC, draped in green** — and the Celtics came out FLYING. Boston built a **14-point halftime lead**, and Celtic fans were already dreaming of a trip to the Finals. The Lakers looked rattled. They looked human.
+
+*But here's the thing about legends... they don't stay down.*
+
+---
+
+## THE LEBRON TAKEOVER 👑
+
+Somebody go ahead and **chisel this fourth quarter into Mount Rushmore** right now, because LeBron James — **39 years old, in a Game 7, on the road** — went absolutely NUCLEAR.
+
+**16 points in the fourth quarter alone.** Not a highlight. Not a moment. A **sustained, methodical, BRILLIANT dismantling** of everything Boston tried to throw at him.
+
+Final line for the King? **38 points. 12 rebounds. 9 assists. 2 steals. 14 of 24 from the field.**
+
+One assist away from a triple-double. In a Game 7. On the road. While erasing a 14-point deficit. Someone PLEASE tell me another player on the planet who does that. I'll wait.
+
+---
+
+## THE AD FACTOR 🏔️
+
+And let's not sleep on **Anthony Davis**, because the big man was an ABSOLUTE WALL tonight. **24 points, 15 rebounds, and 3 blocks** on 9-of-14 shooting. Efficient. Dominant. Immovable. Every time Boston thought they had a lane to the basket, there was AD — arms wide, ready to send it BACK.
+
+---
+
+## THE CLUTCH SHOT HEARD 'ROUND THE GARDEN 💥
+
+**45 seconds left. Lakers up by just one. The entire season on the line.**
+
+Austin Reaves — cool as the other side of the pillow — **catches, rises, FIRES** from downtown and BURIES the three-pointer that put the Lakers up FOUR. The building went SILENT. TD Garden — one of the loudest arenas in basketball history — could not believe what it just saw.
+
+Reaves finished with **18 points and four three-pointers on the night.** The kid is ICE in his veins, baby!
+
+---
+
+## THE CELTIC HEARTBREAK 💚
+
+Now let's give credit where it's absolutely due — **Jayson Tatum was magnificent tonight.** 35 points, 8 rebounds, 6 assists — a performance worthy of winning any other Game 7 in history. But foul trouble haunted him ALL night, and with **1 minute and 12 seconds left**, Tatum picked up his sixth foul and walked to the bench.
+
+The season — over. Just like that.
+
+**Jaylen Brown** battled hard with 22 points, and **Al Horford** gave them everything with 11 points, 9 boards, and 3 blocks. But Boston simply couldn't hold the wall when it mattered most.
+
+---
+
+## FINAL SCORE
+
+# 🏆 LAKERS 108 — CELTICS 104
+
+The Los Angeles Lakers complete the most **stunning second-half comeback in this series**, erasing 14 points and punching their ticket to the NBA Finals!
+
+LeBron James, Anthony Davis, and Austin Reaves walk out of TD Garden victorious — leaving one of basketball's most hallowed buildings in stunned, heartbroken silence.
+
+**History. Was. MADE tonight.**
+
+This is what the NBA Playoffs are ALL about, people. I don't know about you, but I don't want to be anywhere else in the WORLD right now.
+
+*What a game. What a GAME!* 🎙️
+
+output after fixing system prompt:
+
+What a night at TD Garden, folks, what an absolute night! The Los Angeles 
+Lakers have done it, storming back from 14 points down at halftime to take 
+Game 7 from the Boston Celtics, 108 to 104, and they are moving on! LeBron 
+James, ladies and gentlemen, put the entire franchise on his back tonight. 
+Thirty-eight points, twelve rebounds, nine assists, and when this team 
+needed him most, he delivered sixteen points in that fourth quarter alone. 
+Anthony Davis was an absolute force down low, twenty-four and fifteen with 
+three blocks, making life miserable for Boston all night long. And do not 
+sleep on Austin Reaves, because that man buried a clutch three-pointer with 
+45 seconds left to push the lead to four and essentially seal this thing. 
+On the Boston side, Jayson Tatum gave everything he had, thirty-five points, 
+but fouling out with just over a minute to go was absolutely crushing for the 
+Celtics. Jaylen Brown fought hard, Al Horford battled, but tonight belonged 
+to Los Angeles. The Lakers are advancing, and LeBron James continues to defy 
+everything we thought we knew about greatness!
