@@ -30,22 +30,61 @@
 
     .layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
+      grid-template-columns: 580px 1fr;
+      gap: 40px;
       width: 100%;
       max-width: 1400px;
+      align-items: start;
     }
 
     .panel {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
+      background: #222224;
+      border: 1px solid #38383a;
+      border-radius: 12px;
+      padding: 24px;
     }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .panel-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+    }
+
+    .trash-btn {
+      background: none;
+      border: none;
+      color: #555;
+      cursor: pointer;
+      padding: 4px;
+      width: auto;
+      display: flex;
+      align-items: center;
+      transition: color 0.15s;
+    }
+
+    .trash-btn:hover { color: #e05555; opacity: 1; }
 
     .field {
       display: flex;
       flex-direction: column;
       gap: 6px;
+    }
+
+    .field-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     label {
@@ -88,39 +127,14 @@
 
     textarea {
       resize: none;
-      min-height: 260px;
+      min-height: 500px;
       line-height: 1.5;
-    }
-
-    .drop-zone {
-      border: 1px dashed #38383a;
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-      color: #666;
-      font-size: 0.9rem;
-      cursor: pointer;
       transition: border-color 0.15s, background 0.15s;
-      position: relative;
     }
 
-    .drop-zone:hover, .drop-zone.drag-over {
+    textarea.drag-over {
       border-color: #888;
-      background: #262628;
-      color: #aaa;
-    }
-
-    .drop-zone input[type="file"] {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-      width: 100%;
-      height: 100%;
-    }
-
-    .drop-zone-label {
-      pointer-events: none;
+      background: #2e2e30;
     }
 
     button {
@@ -139,10 +153,35 @@
     button:hover { opacity: 0.85; }
     button:disabled { opacity: 0.4; cursor: not-allowed; }
 
+    .copy-btn {
+      background: none;
+      border: 1px solid #38383a;
+      border-radius: 6px;
+      color: #888;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      width: auto;
+      transition: border-color 0.15s, color 0.15s;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .copy-btn:hover { border-color: #666; color: #ccc; opacity: 1; }
+    .copy-btn.copied { border-color: #4a9a6a; color: #4a9a6a; }
+
     .output-panel {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
+      padding-top: 4px;
+    }
+
+    .output-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .output-label {
@@ -154,17 +193,10 @@
     }
 
     #output {
-      font-size: 1.05rem;
-      line-height: 1.85;
+      font-size: 1.1rem;
+      line-height: 1.9;
       color: #d4d4d4;
       white-space: pre-wrap;
-      min-height: 24px;
-    }
-
-    .divider {
-      width: 1px;
-      background: #38383a;
-      margin: 0 -16px;
     }
   </style>
 </head>
@@ -174,6 +206,18 @@
 
   <div class="layout">
     <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Stats</div>
+        <button class="trash-btn" id="trash-btn" title="Clear">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="3 6 5 6 21 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M10 11v6M14 11v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
       <div class="field">
         <label for="sport">Sport</label>
         <select id="sport">
@@ -186,23 +230,18 @@
       </div>
 
       <div class="field">
-        <label for="stats">Paste stats</label>
-        <textarea id="stats" placeholder="Paste box score or game stats here..."></textarea>
-      </div>
-
-      <div class="field">
-        <label>Or upload a file</label>
-        <div class="drop-zone" id="drop-zone">
-          <input type="file" id="file" accept=".txt,.csv" />
-          <div class="drop-zone-label" id="drop-label">Drop a file here or click to browse</div>
-        </div>
+        <label for="stats">Paste or drop a file</label>
+        <textarea id="stats" placeholder="Paste box score or drag a .txt / .csv file here..."></textarea>
       </div>
 
       <button id="submit">Generate Recap</button>
     </div>
 
     <div class="output-panel">
-      <div class="output-label">Script</div>
+      <div class="output-header">
+        <div class="output-label">Script</div>
+        <button class="copy-btn" id="copy-btn">Copy</button>
+      </div>
       <p id="output"></p>
     </div>
   </div>
@@ -211,56 +250,80 @@
     const submitBtn = document.getElementById("submit");
     const statsInput = document.getElementById("stats");
     const output = document.getElementById("output");
-    const fileInput = document.getElementById("file");
-    const dropZone = document.getElementById("drop-zone");
-    const dropLabel = document.getElementById("drop-label");
+    const copyBtn = document.getElementById("copy-btn");
+    const trashBtn = document.getElementById("trash-btn");
 
-    function loadFile(file) {
+    trashBtn.addEventListener("click", () => {
+      statsInput.value = "";
+      output.textContent = "";
+    });
+
+    statsInput.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      statsInput.classList.add("drag-over");
+    });
+
+    statsInput.addEventListener("dragleave", () => {
+      statsInput.classList.remove("drag-over");
+    });
+
+    statsInput.addEventListener("drop", (e) => {
+      e.preventDefault();
+      statsInput.classList.remove("drag-over");
+      const file = e.dataTransfer.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = (e) => {
-        statsInput.value = e.target.result;
-        dropLabel.textContent = file.name;
-      };
+      reader.onload = (ev) => { statsInput.value = ev.target.result; };
       reader.readAsText(file);
-    }
-
-    fileInput.addEventListener("change", () => loadFile(fileInput.files[0]));
-
-    dropZone.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      dropZone.classList.add("drag-over");
     });
 
-    dropZone.addEventListener("dragleave", () => {
-      dropZone.classList.remove("drag-over");
+    copyBtn.addEventListener("click", () => {
+      if (!output.textContent) return;
+      navigator.clipboard.writeText(output.textContent).then(() => {
+        copyBtn.textContent = "Copied";
+        copyBtn.classList.add("copied");
+        setTimeout(() => {
+          copyBtn.textContent = "Copy";
+          copyBtn.classList.remove("copied");
+        }, 2000);
+      });
     });
 
-    dropZone.addEventListener("drop", (e) => {
-      e.preventDefault();
-      dropZone.classList.remove("drag-over");
-      loadFile(e.dataTransfer.files[0]);
-    });
+    let currentController = null;
 
     submitBtn.addEventListener("click", async () => {
+      if (currentController) currentController.abort();
+      currentController = new AbortController();
+
       const stats = statsInput.value;
       const sport = document.getElementById("sport").value;
 
       output.textContent = "";
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Generating...";
 
-      const response = await fetch("/recap", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ stats, sport }),
-      });
+      try {
+        const response = await fetch("/recap", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ stats, sport }),
+          signal: currentController.signal,
+        });
 
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        output.textContent += decoder.decode(value);
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          output.textContent += decoder.decode(value);
+        }
+      } catch (err) {
+        if (err.name !== "AbortError") output.textContent = "Something went wrong. Try again.";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Generate Recap";
+        currentController = null;
       }
     });
   </script>

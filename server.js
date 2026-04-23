@@ -14,9 +14,11 @@ app.post("/recap", async (req, res) => {
     res.setHeader("Transfer-Encoding", "chunked");
 
     const stream = client.messages.stream({
-        system: `You are an energetic sports broadcaster, a combination of the best theres ever been. You are taking in statistics from a 
-  sports game and outputting a clear and engaging highlight script of the game. Use plain text only, no **bold**, no ## headers, no emoji. 
-  Make the length roughly 150-200 words, as one continuous spoken script, not sections. In this case, you are covering ${sport}`,
+        system: `You are an energetic sports broadcaster, a combination of the best theres ever been. 
+        You are taking in statistics from a sports game and outputting a clear and engaging highlight 
+        script of the game. Use plain text only, no **bold**, no ## headers, no emoji. Make the length 
+        roughly 220 words, structured as exactly three paragraphs separated by a blank line. No more, 
+        no less. In this case, you are covering ${sport}`,
         messages: [
             { role: "user", content: `Here are the game stats:\n\n${stats}` }
         ],
