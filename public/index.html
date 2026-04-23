@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Game Recap Tool</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #1c1c1e;
+      color: #e8e8e8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 32px;
+      width: 100%;
+      max-width: 1400px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      width: 100%;
+      max-width: 1400px;
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+    }
+
+    select, textarea {
+      background: #262628;
+      border: 1px solid #38383a;
+      border-radius: 8px;
+      color: #e8e8e8;
+      font-size: 0.95rem;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.15s;
+      font-family: inherit;
+      width: 100%;
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+
+    select:focus, textarea:focus {
+      border-color: #555;
+    }
+
+    select option {
+      background: #262628;
+    }
+
+    textarea {
+      resize: none;
+      min-height: 260px;
+      line-height: 1.5;
+    }
+
+    .drop-zone {
+      border: 1px dashed #38383a;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      color: #666;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      position: relative;
+    }
+
+    .drop-zone:hover, .drop-zone.drag-over {
+      border-color: #888;
+      background: #262628;
+      color: #aaa;
+    }
+
+    .drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .drop-zone-label {
+      pointer-events: none;
+    }
+
+    button {
+      background: #fff;
+      border: none;
+      border-radius: 8px;
+      color: #0f0f0f;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 12px 24px;
+      transition: opacity 0.15s;
+      width: 100%;
+    }
+
+    button:hover { opacity: 0.85; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .output-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .output-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+    }
+
+    #output {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #d4d4d4;
+      white-space: pre-wrap;
+      min-height: 24px;
+    }
+
+    .divider {
+      width: 1px;
+      background: #38383a;
+      margin: 0 -16px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Game Recap Tool</h1>
+
+  <div class="layout">
+    <div class="panel">
+      <div class="field">
+        <label for="sport">Sport</label>
+        <select id="sport">
+          <option value="basketball">Basketball</option>
+          <option value="football">Football</option>
+          <option value="baseball">Baseball</option>
+          <option value="hockey">Hockey</option>
+          <option value="soccer">Soccer</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="stats">Paste stats</label>
+        <textarea id="stats" placeholder="Paste box score or game stats here..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Or upload a file</label>
+        <div class="drop-zone" id="drop-zone">
+          <input type="file" id="file" accept=".txt,.csv" />
+          <div class="drop-zone-label" id="drop-label">Drop a file here or click to browse</div>
+        </div>
+      </div>
+
+      <button id="submit">Generate Recap</button>
+    </div>
+
+    <div class="output-panel">
+      <div class="output-label">Script</div>
+      <p id="output"></p>
+    </div>
+  </div>
+
+  <script>
+    const submitBtn = document.getElementById("submit");
+    const statsInput = document.getElementById("stats");
+    const output = document.getElementById("output");
+    const fileInput = document.getElementById("file");
+    const dropZone = document.getElementById("drop-zone");
+    const dropLabel = document.getElementById("drop-label");
+
+    function loadFile(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        statsInput.value = e.target.result;
+        dropLabel.textContent = file.name;
+      };
+      reader.readAsText(file);
+    }
+
+    fileInput.addEventListener("change", () => loadFile(fileInput.files[0]));
+
+    dropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZone.classList.add("drag-over");
+    });
+
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.classList.remove("drag-over");
+    });
+
+    dropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("drag-over");
+      loadFile(e.dataTransfer.files[0]);
+    });
+
+    submitBtn.addEventListener("click", async () => {
+      const stats = statsInput.value;
+      const sport = document.getElementById("sport").value;
+
+      output.textContent = "";
+
+      const response = await fetch("/recap", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ stats, sport }),
+      });
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        output.textContent += decoder.decode(value);
+      }
+    });
+  </script>
+</body>
+
+</html>
