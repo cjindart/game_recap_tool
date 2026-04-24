@@ -15,26 +15,32 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 40px 24px;
+      padding: clamp(16px, 3vw, 40px) clamp(16px, 3vw, 24px);
     }
 
     h1 {
-      font-size: 1.6rem;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
       font-weight: 700;
       letter-spacing: -0.5px;
       color: #fff;
-      margin-bottom: 32px;
+      margin-bottom: clamp(16px, 3vw, 32px);
       width: 100%;
       max-width: 1400px;
     }
 
     .layout {
       display: grid;
-      grid-template-columns: 580px 1fr;
-      gap: 40px;
+      grid-template-columns: minmax(280px, 580px) 1fr;
+      gap: clamp(20px, 3vw, 40px);
       width: 100%;
       max-width: 1400px;
       align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
     }
 
     .panel {
@@ -127,7 +133,7 @@
 
     textarea {
       resize: none;
-      min-height: 500px;
+      min-height: clamp(200px, 40vh, 500px);
       line-height: 1.5;
       transition: border-color 0.15s, background 0.15s;
     }
@@ -224,10 +230,13 @@
           <option value="basketball">Basketball</option>
           <option value="football">Football</option>
           <option value="baseball">Baseball</option>
+          <option value="soccer">Water Polo</option>
           <option value="hockey">Hockey</option>
           <option value="soccer">Soccer</option>
         </select>
       </div>
+
+      <!-- Add highlight tags to focus on goals, shots, steals, etc.  --> 
 
       <div class="field">
         <label for="stats">Paste or drop a file</label>
