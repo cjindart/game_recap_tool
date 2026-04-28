@@ -1,8 +1,10 @@
 import express from "express";
 import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 
 const app = express();
 const client = new Anthropic();
+const openai = new OpenAI();
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -32,6 +34,21 @@ app.post("/recap", async (req, res) => {
 
     await stream.finalMessage();
     res.end();
+});
+
+app.post("/speak", async (req, res) => {
+    const { text } = req.body;
+
+    const response = await openai.audio.speech.create({
+        model: "tts-1",
+        voice: "onyx",
+        input: text,
+        speed: 1.05,
+    });
+
+    res.setHeader("Content-Type", "audio/mpeg");
+    const buffer = Buffer.from(await response.arrayBuffer());
+    res.send(buffer);
 });
 
 app.listen(3000, () => {
